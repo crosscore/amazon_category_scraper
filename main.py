@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from tqdm import tqdm
 from colorama import init, Fore, Style
+from config import *
 
 class AmazonCategoryScraper:
     def __init__(self):
@@ -226,10 +227,9 @@ class AmazonCategoryScraper:
         return ranking
 
 def main():
-    category_urls = [
-        "https://www.amazon.co.jp/s?k=juice&i=food-beverage&rh=n%3A57239051%2Cn%3A71442051%2Cn%3A2422779051",
-        # Add other category URLs
-    ]
+    config_loader = ConfigLoader()
+    categories = config_loader.load_config()
+    category_urls = config_loader.get_urls()
 
     scraper = AmazonCategoryScraper()
     scraper.start_driver()
